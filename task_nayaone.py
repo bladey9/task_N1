@@ -11,15 +11,15 @@ import matplotlib.pyplot as plt
 #**TASK ONE**
 
 #1a) The average annual income for an employee length of >=10 years is 90,728.00 while the 
-#average annual income for an employee length of 1 year is 74,006.87, avg = 79222.148
+#average annual income for an employee length of 1 year is 74,006.87, Overall average = 79222.148.
 
 #b) The average individual who has incurred late fees generates an average income of 74203, considerably lower than
-#the average. Invididuals who have declared bankruptcy are 25% more likely to have incurred late penalty fees.
+#the overall average. Invididuals who have declared bankruptcy are 25% more likely to have incurred late penalty fees.
 
-#c)Approximately 36% of inividuals do not have a verified income
+#c)Approximately 36% of inividuals do not have a verified income.
 
 #d)Individuals with a minimum of 25 open credit lines have an approximate 23% larger debt-to-income figure than
-#the overall average
+#the overall average.
 
 #e)DC, Maryland & California are the states with the highest annual incomes, while South Dakota is the lowest.
 
@@ -57,14 +57,15 @@ class Calculation():
                 outliers_df = outliers_df.append(outliers_possible)
                 
             else:
-                #for non-numerical values outliers = less than value threshold
-                #however removes a large majority due to employee title therefore kept to 0
-                #Removing column of employee title could be done for process
+                #for non-numerical values = outliers are chosen when a value is less than the value threshold
+                #i.e It has only appeared < X amount of times. 
+                #Process for this specific dataset is not ideal as "employee title" has very unique values. 
                 counts = self.dataset[column].value_counts()
                 outliers_possible = self.dataset[self.dataset[column].isin(counts[counts <= v_thresh].index)]
                 outliers_df = outliers_df.append(outliers_possible)
         
         outliers_df.drop_duplicates(inplace=True)
+        #return the series of outliers in list form
         return outliers_df.values.tolist()
 
 
